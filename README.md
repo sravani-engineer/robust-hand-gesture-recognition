@@ -239,16 +239,16 @@ This ensures performance reflects **true generalization**, not memorization.
 
 ---
 
-## ⚠️ Failure Examples (Visual) 
+## ⚠️ Failure Examples (Visual)
 
-<p align="center"> 
-  <img src="results/failure_open_vs_four.png" width="400"/> 
-  <img src="results/far_distance_failure.png" width="400"/> 
-</p> 
+<p align="center">
+  <img src="results/failure_no_hand_detection.png" width="400"/>
+  <img src="results/failure_open_vs_four.png" width="400"/>
+</p>
 
-Examples where the model struggles: 
-- Similar gestures causing misclassification
-- Reduced landmark precision at larger distances
+### Observations
+- Missed hand detection at larger distances, leading to false negatives
+- Misclassification between visually similar gestures (e.g., four predicted as open)
 
 ---
 ## 💼 Why This Matters
