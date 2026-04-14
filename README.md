@@ -1,6 +1,6 @@
 # 🖐️ Hand Gesture Recognition — Failure Analysis of Model Performance Under Real-World Conditions
-> Most gesture recognition systems report near-perfect accuracy.
-> They break the moment you change the user, lighting, or background.
+> Most gesture recognition systems report near-perfect accuracy in controlled settings.  
+> Performance degrades significantly when conditions change (user, lighting, background).
 
 This project measures that failure — and explains why it happens.
 
@@ -19,6 +19,8 @@ This project measures that failure — and explains why it happens.
 - 📊 Evaluated across **12 sessions, 5 users, ~22K frames**
 - 🔬 Designed **session-based validation** to prevent data leakage
 - 📉 Quantified **real-world performance drop (100% → 88.4%)**
+- 🔍 Conducted detailed **failure analysis with visual examples**
+- 📈 Visualized performance variation across conditions
 - ⚠️ Identified **failure modes under domain shift**
 - 🎯 Focused on **generalization, not inflated accuracy**
   
@@ -180,6 +182,18 @@ This ensures performance reflects **true generalization**, not memorization.
 
 - Overall Accuracy: **~93–94%**
 
+---
+
+## 📉 Performance Across Conditions
+
+<p align="center">
+  <img src="results/accuracy_vs_conditions.png" width="600"/>
+</p>
+
+👉 This graph highlights the **drop in performance under real-world conditions**, demonstrating the impact of domain shift.
+
+---
+
 ### Robustness Evaluation
 
 | Condition | Description | Accuracy |
@@ -210,17 +224,6 @@ This ensures performance reflects **true generalization**, not memorization.
 
 ---
 
-## 🧠 Key Insights
-
-- Model performance is primarily limited by gesture similarity (open vs four)
-- Feature representation struggles to separate similar finger configurations
-- Lighting and background have less impact than expected
-- Distance affects landmark precision moderately
-- Random splits hide gesture-level confusion patterns
-- Model limitations are driven more by feature ambiguity than environmental noise
-
----
-
 ## 📉 Confusion Matrix
 
 <p align="center">
@@ -241,27 +244,50 @@ This ensures performance reflects **true generalization**, not memorization.
 
 ## ⚠️ Failure Examples (Visual)
 
+<p align="center"><i>Representative failure cases observed under real-world conditions</i></p>
+
 <p align="center">
   <img src="results/failure_no_hand_detection.png" width="400"/>
+  <br><i>False negative: hand not detected at larger distance</i>
+</p>
+
+<p align="center">
   <img src="results/failure_open_vs_four.png" width="400"/>
+  <br><i>Misclassification: four predicted as open</i>
 </p>
 
 ### Observations
-- Missed hand detection at larger distances, leading to false negatives
-- Misclassification between visually similar gestures (e.g., four predicted as open)
+
+- Missed hand detection due to reduced landmark visibility (false negatives)
+- Misclassification caused by feature similarity
 
 ---
-## 💼 Why This Matters
 
-This project analyzes how model performance shifts when evaluated across real-world variations rather than controlled settings.
+## 🧠 Key Insights
 
-It focuses on:
+- Errors driven by **gesture similarity**, not environment
+- Feature representation struggles with similar configurations
+- Distance affects landmark precision
+- Random splits hide real-world failure patterns
 
-- Handling **domain shift**  
-- Avoiding **data leakage**  
-- Performing **failure analysis**  
+---
 
-👉 These are critical for production-level ML systems.
+## 💡 What Makes This Project Different?
+
+Most projects:
+
+- Use random splits  
+- Report inflated accuracy  
+- Ignore failure cases  
+
+This project:
+
+- ✅ Uses session-based validation  
+- ✅ Evaluates domain shift  
+- ✅ Includes failure analysis  
+- ✅ Visualizes performance drop  
+
+👉 Reflects real-world ML system behavior
 
 ---
 
@@ -274,6 +300,7 @@ robust-hand-gesture-recognition/
 │   └── config.toml  
 │
 ├── streamlit_app.py
+│
 ├── models/
 │   └── gesture_model.pkl
 │
@@ -289,8 +316,13 @@ robust-hand-gesture-recognition/
 ├── results/
 │   ├── demo.gif
 │   ├── confusion_matrix.png
+│   ├── accuracy_vs_conditions.png
 │   ├── streamlit_ui_1.png
-│   └── streamlit_ui_2.png
+│   ├── streamlit_ui_2.png
+│   ├── failure_no_hand_detection.png
+│   └── failure_open_vs_four.png
+│
+├── create_graph.py              
 │
 ├── requirements.txt  
 ├── README.md
