@@ -1,4 +1,5 @@
 # 🖐️ Hand Gesture Recognition — Failure Analysis of Model Performance Under Real-World Conditions
+
 > Most gesture recognition systems report near-perfect accuracy in controlled settings.  
 > Performance degrades significantly when conditions change (user, lighting, background).
 
@@ -23,14 +24,18 @@ This project measures that failure — and explains why it happens.
 - 📈 Visualized performance variation across conditions
 - ⚠️ Identified **failure modes under domain shift**
 - 🎯 Focused on **generalization, not inflated accuracy**
-  
+
 ---
 
-## 🧠 Core Idea 
+## 🧠 Core Idea
 
-Instead of asking "How accurate is the model?", this project asks: 
+Instead of asking:
 
-**"When and why does the model fail?"**
+> "How accurate is the model?"
+
+This project asks:
+
+> **"When and why does the model fail?"**
 
 ---
 
@@ -72,24 +77,24 @@ streamlit run streamlit_app.py
 - Confidence scoring  
 - Temporal smoothing for stable predictions  
 - Hand landmark visualization  
-- Processing metrics (frame count, detection rate)  
+- Processing metrics (frame count, detection rate)
 
 ---
 
-## 🎯 🧪 Evaluation Conditions 
+## 🎯 Evaluation Conditions
 
 - Lighting variation (bright, dim, natural)
 - Background clutter (clean vs complex)
 - Distance from camera (near vs far)
 - User variation (different hand shapes)
-  
+
 ---
 
 ## ⚠️ Limitations
 
-- Minor performance drop in low light conditions 
-- Confusion: open vs four  
-- Sensitive to hand distance  
+- Minor performance drop in low light conditions  
+- Confusion: **open vs four**  
+- Sensitivity to hand distance  
 
 💡 Designed to expose real-world behavior, not just ideal performance.
 
@@ -105,20 +110,20 @@ Video → MediaPipe → Landmarks → Feature Engineering → Model → Predicti
 
 ## 💡 What Makes This Project Different?
 
-Most projects:
+### Typical Projects
 
 - Use random train-test split  
 - Report inflated accuracy  
 - Ignore real-world deployment issues  
 
-This project:
+### This Project
 
 - ✅ Uses session-based validation  
 - ✅ Evaluates domain shift explicitly  
 - ✅ Includes failure analysis  
 - ✅ Focuses on generalization, not memorization  
 
-👉 This reflects how ML systems behave in real-world deployment, not ideal conditions.
+👉 Reflects real-world ML system behavior — not ideal conditions.
 
 ---
 
@@ -131,7 +136,7 @@ Most gesture recognition systems perform well in controlled environments but fai
 - Distance changes  
 - Different users and hand variations  
 
-👉 This project evaluates performance under these challenges.
+👉 This project evaluates performance under these real-world challenges.
 
 ---
 
@@ -141,46 +146,46 @@ Most gesture recognition systems perform well in controlled environments but fai
 - Applied normalization for scale invariance  
 - Trained a **Random Forest classifier**  
 - Designed a **session-based evaluation strategy**  
-- Measured performance under different real-world conditions  
+- Measured performance across real-world conditions  
 
 ---
 
 ## 📦 Dataset Design
 
-- Total Sessions: **12**  
-- Users: **5 individuals**  
-- Gestures: **5 static classes (fist, open, index, four, small)**  
-- Total Samples: **~22,000 frames**
+- **Total Sessions:** 12  
+- **Users:** 5 individuals  
+- **Gestures:** 5 classes (fist, open, index, four, small)  
+- **Total Samples:** ~22,000 frames  
 
 ### Data Collection Strategy
 
-- Backgrounds: plain and cluttered indoor environments  
-- Lighting Conditions: bright, dim, and natural light  
-- User Variation: different hand shapes and sizes  
-- Pose Variation: changes in hand position, orientation, and distance  
+- Backgrounds: plain and cluttered environments  
+- Lighting: bright, dim, natural  
+- User variation: different hand shapes  
+- Pose variation: distance, angle, orientation  
 
 ### Objective
 
-The dataset is designed to evaluate gesture recognition performance under **real-world conditions**, rather than controlled environments.
+Evaluate gesture recognition performance under **real-world conditions**, not controlled datasets.
 
 ---
 
 ## 🧪 Evaluation Strategy (Key Design)
 
-🚨 Instead of random train-test splits, this project uses **session-based splitting**:
+🚨 Instead of random splits:
 
-- Train and test data come from **different sessions**  
-- Prevents **data leakage**  
-- Simulates **real-world deployment scenarios**  
-- Captures **domain shift across environments**  
+- Train/test data from **different sessions**
+- Prevents **data leakage**
+- Simulates **real-world deployment**
+- Captures **domain shift**
 
-This ensures performance reflects **true generalization**, not memorization.
+👉 Ensures true generalization.
 
 ---
 
 ## 📊 Results
 
-- Overall Accuracy: **~93–94%**
+- **Overall Accuracy:** ~93–94%
 
 ---
 
@@ -190,7 +195,7 @@ This ensures performance reflects **true generalization**, not memorization.
   <img src="results/accuracy_vs_conditions.png" width="600"/>
 </p>
 
-👉 This graph highlights the **drop in performance under real-world conditions**, demonstrating the impact of domain shift.
+👉 Clear evidence of **performance degradation under real-world conditions**
 
 ---
 
@@ -199,22 +204,26 @@ This ensures performance reflects **true generalization**, not memorization.
 | Condition | Description | Accuracy |
 |----------|------------|---------|
 | Controlled Environment | Uniform background, consistent lighting, single user | 1.0000 |
-| Moderate Variation | Slight lighting changes, simple background variations | 0.9999 |
-| Challenging Conditions | Low light, cluttered background, multiple users, varying distances | 0.8842 |
+| Moderate Variation | Slight lighting changes, simple background | 0.9999 |
+| Challenging Conditions | Low light, cluttered, multiple users | 0.8842 |
 
-📉 **Performance Drop:** ~12% under real-world conditions
+📉 **Performance Drop:** ~12%
 
-### 🔬 Condition-wise Impact (Observed) 
+---
 
-| Factor | Impact on Accuracy | 
-|------------------------------------|------------------| 
-| Similar Gestures (open vs four) | ↓ major drop | 
-| Small vs Fist Confusion | ↓ occasional drop | 
-| Distance from Camera | ↓ moderate drop | 
-| Lighting Variation | ↓ minor impact | 
-| Background Clutter | ↓ minimal impact | 
+### 🔬 Condition-wise Impact
 
-👉 The primary limitation arises from gesture similarity rather than environmental variation.
+| Factor | Impact |
+|--------|--------|
+| Similar Gestures (open vs four) | ↓ major |
+| Small vs Fist | ↓ occasional |
+| Distance | ↓ moderate |
+| Lighting | ↓ minor |
+| Background | ↓ minimal |
+
+👉 Primary limitation = **gesture similarity**, not environment.
+
+---
 
 ### Summary Statistics
 
@@ -234,11 +243,12 @@ This ensures performance reflects **true generalization**, not memorization.
 
 ## ⚠️ Failure Analysis
 
-- Confusion between **open** and **four** due to similar finger configurations  
-- Reduced landmark stability in **low lighting conditions**  
-- Performance degradation when hand occupies **smaller region of frame**  
-- Sensitivity to **partial occlusions and motion blur**
-- Major errors are caused by intrinsic gesture similarity rather than environmental noise  
+- Confusion between **open** and **four**  
+- Reduced landmark stability in low light  
+- Performance drops when hand is far  
+- Sensitive to occlusions and motion blur  
+
+👉 Errors driven by **feature ambiguity**, not noise.
 
 ---
 
@@ -258,36 +268,17 @@ This ensures performance reflects **true generalization**, not memorization.
 
 ### Observations
 
-- Missed hand detection due to reduced landmark visibility (false negatives)
-- Misclassification caused by feature similarity
+- Missed detection due to reduced landmark visibility  
+- Misclassification caused by feature similarity  
 
 ---
 
 ## 🧠 Key Insights
 
-- Errors driven by **gesture similarity**, not environment
-- Feature representation struggles with similar configurations
-- Distance affects landmark precision
-- Random splits hide real-world failure patterns
-
----
-
-## 💡 What Makes This Project Different?
-
-Most projects:
-
-- Use random splits  
-- Report inflated accuracy  
-- Ignore failure cases  
-
-This project:
-
-- ✅ Uses session-based validation  
-- ✅ Evaluates domain shift  
-- ✅ Includes failure analysis  
-- ✅ Visualizes performance drop  
-
-👉 Reflects real-world ML system behavior
+- Errors driven by **gesture similarity**, not environment  
+- Feature representation struggles with similar patterns  
+- Distance reduces landmark precision  
+- Random splits hide real-world failures  
 
 ---
 
@@ -322,7 +313,7 @@ robust-hand-gesture-recognition/
 │   ├── failure_no_hand_detection.png
 │   └── failure_open_vs_four.png
 │
-├── create_graph.py              
+├── create_graph.py
 │
 ├── requirements.txt  
 ├── README.md
@@ -364,14 +355,14 @@ streamlit run streamlit_app.py
 ## 🔄 Pipeline
 
 ```
-Video Input → Landmark Extraction → Preprocessing → Model Training → Evaluation → Real-time Inference
+Video Input → Landmark Extraction → Preprocessing → Model → Evaluation → Real-time Inference
 ```
----
-
-## 🔥 Key Takeaway 
-
-High accuracy does not mean a reliable system. 
-
-Real-world performance depends on robustness to changing conditions — and most models fail this test. 
 
 ---
+
+## 🔥 Key Takeaway
+
+High accuracy does **not** mean a reliable system.
+
+Real-world ML performance depends on robustness —  
+and most models fail this test.
